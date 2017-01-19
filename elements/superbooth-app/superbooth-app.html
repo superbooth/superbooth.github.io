@@ -43,21 +43,30 @@
     </mqtt-connection>
 
     <!-- App -->
-    <section class="superbooth">
+    <section class="superbooth flex flex--col flex--spaced">
       <!-- Header -->
-      <superbooth-header app-name="{{config.appName}}"></superbooth-header>
+      <superbooth-header class="flex__item" app-name="{{config.appName}}"></superbooth-header>
 
       <!-- Body -->
-      <div class="superbooth__body">
-        <!-- App -->
-        <section class="flex flex--col">
-          <template is="dom-repeat" items="{{teams}}">
-            <superbooth-competition-card
-                card-name={{item.teamName}}
-                scores={{item.data}}>
-            </superbooth-competition-card>
-          </template>
-        </section>
+      <div class="flex__item">
+        <div class="superbooth__body">
+          <!-- App -->
+          <section class="flex flex--col">
+            <template is="dom-repeat" items="{{teams}}">
+              <superbooth-competition-card
+                  card-name={{item.teamName}}
+                  scores={{item.data}}>
+              </superbooth-competition-card>
+            </template>
+          </section>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex__item flex">
+        <div class="superbooth__footer flex__item flex">
+          <button class="btn btn--reverse flex__item--bottom flex__item--end" on-tap="_resetAllValues">Reset</button>
+        </div>
       </div>
     </section>
 
@@ -238,7 +247,6 @@
         this.set('deptLookup.' + config.group1.id, config.group1.name);
         this.set('deptLookup.' + config.group2.id, config.group2.name);
         this.set('deptLookup.' + config.group3.id, config.group3.name);
-        debugger;
 
         // Set the teams
         this.set('teams', teams);
@@ -258,25 +266,23 @@
         this._ensureBrokerConnected();
       },
 
-      // _resetAllValues: function() {
-      //   var teams = this.get('teams');
-      //   if (!teams || !teams.length) return;
-      //   // var dataPathsToClear = teams.map(function(team, index) { return 'teams.#' + index + '.data' });
-      //   var pathsToUpdate = teams.map(function(team) {
-      //     var data = team.data || [];
-      //     var updatePaths = data.map(function(item) {
-      //       if (item.hasOwnProperty('value')) {
-      //         item.value = 0;
-      //       }
-      //       return item;
-      //     });
-      //     team.data = newData;
-      //     return team;
-      //   }.bind(this));
-      //
-      //   this.set('teams',[]);
-      //   this.set('teams',updatedTeams);
-      // }
+      _resetAllValues: function() {
+        var teams = this.get('teams');
+        if (!teams || !teams.length) return;
+        var dataPathsToClear = [];
+        teams.forEach(function(team, index) {
+          var basePath = 'teams.#' + index + '.data';
+          var dataArrs = this.get(basePath);
+          for (var i = 0; i < dataArrs.length; i++) {
+            dataPathsToClear.push(basePath + '.#' + i + '.value');
+          }
+        }.bind(this));
+
+        // Clear each path
+        dataPathsToClear.forEach(function(path) {
+          this.set(path, 0);
+        }.bind(this));
+      }
 
     });
   </script>

@@ -24,7 +24,14 @@
 // ...
 
 // Objects
-// ...
+$inuit-enable-btn--tertiary : true;
+@import 'px-buttons-design/_objects.buttons.scss';
+.btn.btn--reverse {
+  border: 1px solid $white;
+  color: $white;
+  background-color: transparent;
+  opacity: 0.5;
+}
 
 // Component
 .superbooth {
@@ -36,7 +43,7 @@
   bottom: 0;
   padding: $inuit-base-spacing-unit;
 }
-.superbooth__header, .superbooth__body {
+.superbooth__header, .superbooth__body, .superbooth__footer {
   max-width: calculateRem(1000px);
   margin-left: auto;
   margin-right: auto;
