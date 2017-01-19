@@ -1,0 +1,31 @@
+{
+  "appName" : "Just In Time Budgeting",
+
+  "mqttWebsocketUrl" : "ws://sanramon.ge.mqtt.findquiet.space:1884",
+  "mqttRequiresLogin" : true,
+  "mqttUsername" : "ge_sanramon",
+  "mqttPassword" : "Acc3ssGr@nted",
+  "mqttTopic" : "DataStorageOut",
+
+  "team1" : {
+    "name" : "Team 1",
+    "sender" : "-16711936"
+  },
+  "team2" : {
+    "name" : "Team 2",
+    "sender" : "-16711937"
+  },
+
+  "group1" : {
+    "name" : "Engineering",
+    "id" : "102"
+  },
+  "group2" : {
+    "name" : "Production",
+    "id" : "104"
+  },
+  "group3" : {
+    "name" : "Sales",
+    "id" : "106"
+  }
+}
