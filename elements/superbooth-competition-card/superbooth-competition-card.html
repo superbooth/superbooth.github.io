@@ -1,0 +1,48 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+
+<!-- Import style modules -->
+<link rel="import" href="../../css/superbooth-frontend-styles.html" />
+<link rel="import" href="../../bower_components/px-theme/px-theme-styles.html" />
+
+<dom-module id="superbooth-competition-card">
+  <template>
+    <style include="predix-ui-styles" is="custom-style"></style>
+    <style include="superbooth-frontend-styles" is="custom-style"></style>
+
+    <!-- Team 1 -->
+    <article class="[ flex__item ]">
+      <h2 class="superbooth__card__title">{{cardName}}</h2>
+      <div class="superbooth__card flex flex--row">
+        <template is="dom-repeat" items="{{scores}}">
+          <div class="[ flex__item ] superbooth__card__section">
+            <p class="superbooth__kpi__title">{{item.name}}</p>
+            <p class="superbooth__kpi__number">{{item.value}}</p>
+          </div>
+        </template>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'superbooth-competition-card',
+      properties: {
+        /**
+         * The name to display above the card.
+         *
+         * @property cardName
+         * @type {String}
+         */
+        cardName: {
+          type: String,
+          value: ''
+        },
+        scores: {
+          type: Array,
+          value: function(){ return []; }
+        }
+      }
+    });
+  </script>
+</dom-module>

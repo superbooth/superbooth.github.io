@@ -1,0 +1,31 @@
+{
+  "name": "superbooth-frontend",
+  "authors": [
+    "David Leonard <davidrobertleonard@gmail.com>"
+  ],
+  "description": "Frontend application to show IoT sensor data.",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#^0.7.2"
+  },
+  "dependencies": {
+    "polymer": "^1.7.1",
+    "webcomponentsjs": "^0.7.23",
+    "app-route": "PolymerElements/app-route#^0.9.3",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "px-theme": "^2.0.3",
+    "px-spinner": "^0.5.1",
+    "mqtt-elements": "^0.0.6-beta",
+    "px-headings-design": "^0.3.3"
+  }
+}

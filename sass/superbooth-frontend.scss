@@ -1,0 +1,95 @@
+// Settings
+// $inuit-base-font-size: 10px;
+@import "px-colors-design/_settings.colors.scss";
+
+// Tools
+@mixin tablet-up {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+// Generic
+@import "px-normalize-design/_generic.normalize.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
+
+// Base
+@import "px-flexbox-design/_base.flexbox.scss";
+@import "px-viewport-design/_base.viewport.scss";
+@import "px-typography-design/_base.typography.scss";
+@import "px-headings-design/_base.headings.scss";
+
+// Meta
+// ...
+
+// Objects
+// ...
+
+// Component
+.superbooth {
+  background-color: $gray9;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: $inuit-base-spacing-unit;
+}
+.superbooth__header, .superbooth__body {
+  max-width: calculateRem(1000px);
+  margin-left: auto;
+  margin-right: auto;
+}
+.superbooth__header {
+  background-color: $gray9;
+  width: 100%;
+
+  h3 {
+    margin: 0;
+    line-height: calculateRem(60px);
+    font-weight: normal;
+    color: var(--px-seed-header-text-color, $white);
+
+    svg { margin-bottom: -.1em }
+    &.app-title { color: var(--px-seed-header-text-color, $gray4) }
+    &.logo {
+      // visibility: hidden;
+      color: var(--px-seed-header-text-color, $gray6);
+    }
+
+    @include tablet-up {
+      &.logo {
+        visibility: visible;;
+      }
+    }
+  }
+}
+
+.superbooth__card {
+  background-color: white;
+}
+.superbooth__card__title {
+  @extend .delta;
+  font-weight: 400;
+  color: $gray4;
+}
+.superbooth__card__section {
+  border-right: 1px solid $gray3;
+  text-align: center;
+  padding: $inuit-base-spacing-unit--large
+}
+.superbooth__kpi__title {
+  @extend .epsilon;
+  text-transform: uppercase;
+  color: $gray7;
+}
+.superbooth__kpi__number {
+  @extend .alpha;
+  margin-top: $inuit-base-spacing-unit--large;
+}
+
+// Trumps
+@import "inuit-clearfix/_trumps.clearfix.scss";
+@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
+@import "px-widths-responsive-design/_trumps.widths-responsive.scss";

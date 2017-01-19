@@ -1,0 +1,213 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+
+<!-- Import style modules -->
+<link rel="import" href="../../css/superbooth-frontend-styles.html" />
+<link rel="import" href="../../bower_components/px-theme/px-theme-styles.html" />
+
+<!-- Import external dependencies -->
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="../../bower_components/app-route/app-route.html" />
+<link rel="import" href="../../bower_components/app-route/app-location.html" />
+<link rel="import" href="../../bower_components/px-spinner/px-spinner.html" />
+<link rel="import" href="../../bower_components/mqtt-elements/mqtt-elements.html">
+
+<!-- Import internal dependencies -->
+<link rel="import" href="../superbooth-header/superbooth-header.html" />
+<link rel="import" href="../superbooth-competition-card/superbooth-competition-card.html" />
+
+<dom-module id="superbooth-app">
+  <template>
+    <style include="predix-ui-styles" is="custom-style"></style>
+    <style include="superbooth-frontend-styles" is="custom-style"></style>
+
+    <!-- MQTT connector -->
+    <mqtt-connection
+        id="broker"
+        url="ws://sanramon.ge.mqtt.findquiet.space:1884"
+        options='{"username": "ge_sanramon", "password": "Acc3ssGr@nted"}'
+        auto
+        with-credentials>
+      <mqtt-subscription
+          topic="DataStorageOut"
+          number-of-messages="100"
+          last-message="{{lastDataStorageMsg}}"
+          messages="{{messages}}"
+          subscribed="{{subscribed}}">
+      </mqtt-subscription>
+    </mqtt-connection>
+
+    <!-- App -->
+    <section class="superbooth">
+      <!-- Header -->
+      <superbooth-header app-name="Just In Time Budgeting"></superbooth-header>
+
+      <!-- Body -->
+      <div class="superbooth__body">
+        <!-- App -->
+        <section class="flex flex--col">
+          <template is="dom-repeat" items="{{teams}}">
+            <superbooth-competition-card
+                card-name={{item.teamName}}
+                scores={{item.data}}>
+            </superbooth-competition-card>
+          </template>
+        </section>
+      </div>
+    </section>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'superbooth-app',
+
+      properties: {
+        /**
+         * When the initial AJAX call to retrieve state information is satisfied,
+         * set to true to kick off display UI in the app.
+         */
+        initialStateLoaded: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Holds the last incoming message from the `DataStorageOut` topic.
+         */
+        lastDataStorageMsg: {
+          type: Object,
+          observer: '_handleDataStorageMsg'
+        },
+
+        teamLookup: {
+          type: Object,
+          value: function() { return {}; }
+        },
+
+        teams: {
+          type: Array,
+          value: function() {
+            return [
+              { "senderId" : "-16711936",
+                "teamName" : "Team 1",
+                "data" : [ {name:"Engineering", value:0},{name:"Production", value:0},{name:"Sales", value:0} ] },
+              { "senderId" : "-16711937",
+                "teamName" : "Team 2",
+                "data" : [ {name:"Engineering", value:0},{name:"Production", value:0},{name:"Sales", value:0} ] },
+            ]
+          }
+        }
+      },
+
+      observers: ['_calculateTeamLookup(teams)'],
+
+      _calculateTeamLookup: function(teams) {
+        if (teams && teams.length) {
+          for (var i = 0; i < teams.length; i++) {
+            var senderId = teams[i].senderId;
+            var pathTo = 'teamLookup.' + senderId;
+            if (typeof this.get(pathTo) === 'undefined') {
+              this.set(pathTo, '#' + i);
+            }
+          }
+        }
+      },
+
+      attached: function() {
+        this._ensureBrokerConnected();
+      },
+
+      /**
+       * Checks the MQTT broker to make sure it is connected. Attempts to connect
+       * if it is not connected.
+       */
+      _ensureBrokerConnected: function() {
+        var broker = this.$.broker;
+        if (broker) {
+          broker.connect();
+        }
+      },
+
+      _handleDataStorageMsg: function(msg) {
+        if (!msg.parsedPayload) return;
+
+        // Try to parse the message
+        var parsedMsg;
+        try {
+          parsedMsg = JSON.parse(msg.parsedPayload);
+        }
+        catch (err) {
+          console.log("Couldn't parse messge:" + err);
+          return;
+        }
+
+        // 102 = Engineering
+        // 104 = Production
+        // 106 = Sales
+
+        // Find the team for this sender
+        var teamIndex = this.get('teamLookup.' + parsedMsg.Sender);
+        if (typeof teamIndex === 'undefined') return;
+        var pathToTeam = 'teams.' + teamIndex;
+        var teamToInc = this.get(pathToTeam);
+
+        if (teamToInc) {
+          // var amountToInc = parsedMsg.Value;
+          var amountToInc = 1;
+          // var deptToInc = (parsedMsg.Notes.indexOf('Output') === -1) ? parsedMsg.Notes : parsedMsg.Notes.replace('Output', '');
+          var deptToInc;
+          if (parsedMsg.Name == "102") deptToInc = "Engineering";
+          if (parsedMsg.Name == "104") deptToInc = "Production";
+          if (parsedMsg.Name == "106") deptToInc = "Sales";
+          var pathToDeptVal = this._ensureDept(pathToTeam, deptToInc);
+          var newDeptVal = Math.floor(Math.floor(this.get(pathToDeptVal)) + Math.floor(amountToInc));
+          this.set(pathToDeptVal, newDeptVal);
+          console.log(
+            'Updating data:' +
+            '\n  Team: ' + teamToInc.teamName +
+            '\n  Dept: ' + deptToInc +
+            '\n  Amount to add: ' + amountToInc +
+            '\n  New value: ' + newDeptVal
+          );
+        }
+      },
+
+      _ensureDept: function(teamPath, deptName) {
+        var teamData = this.get(teamPath + '.data');
+        var deptIndex;
+        teamData.forEach(function(data, index) {
+          if (data.name === deptName) {
+            deptIndex = index;
+          }
+        });
+        if (typeof deptIndex === 'undefined') {
+          teamData.push({"name":deptName,"value":0});
+          this.set(teamPath + '.data', teamData);
+          deptIndex = (teamData.length - 1);
+        }
+        return teamPath + '.data.#' + deptIndex + '.value';
+      },
+
+      // _resetAllValues: function() {
+      //   var teams = this.get('teams');
+      //   if (!teams || !teams.length) return;
+      //   // var dataPathsToClear = teams.map(function(team, index) { return 'teams.#' + index + '.data' });
+      //   var pathsToUpdate = teams.map(function(team) {
+      //     var data = team.data || [];
+      //     var updatePaths = data.map(function(item) {
+      //       if (item.hasOwnProperty('value')) {
+      //         item.value = 0;
+      //       }
+      //       return item;
+      //     });
+      //     team.data = newData;
+      //     return team;
+      //   }.bind(this));
+      //
+      //   this.set('teams',[]);
+      //   this.set('teams',updatedTeams);
+      // }
+
+    });
+  </script>
+</dom-module>
