@@ -73,14 +73,43 @@ $inuit-enable-btn--tertiary : true;
   }
 }
 
+.superbooth__body {
+  padding-top: $inuit-base-spacing-unit--large;
+}
+
 .superbooth__card {
   background-color: white;
+  min-height: 8rem;
+  padding: $inuit-base-spacing-unit--large;
+
+  &.superbooth__card--unknown {
+    background-color: $gray3;
+  }
+  &.superbooth__card--available {
+    background-color: $dv-light-green;
+  }
+  &.superbooth__card--occupied {
+    background-color: $dv-light-red;
+  }
+}
+
+.superbooth__card__status {
+  @extend .gamma;
+  width: 100%;
+  text-align: right;
+  margin-top: $inuit-base-spacing-unit--large;
 }
 .superbooth__card__title {
   @extend .delta;
   font-weight: 400;
-  color: $gray4;
+
+  margin-top: $inuit-base-spacing-unit;
+  margin-bottom: $inuit-base-spacing-unit--tiny;
 }
+.superbooth__card__updated {
+  margin-top: 0;
+}
+
 .superbooth__card__section {
   border-right: 1px solid $gray3;
   text-align: center;
@@ -94,6 +123,10 @@ $inuit-enable-btn--tertiary : true;
 .superbooth__kpi__number {
   @extend .alpha;
   margin-top: $inuit-base-spacing-unit--large;
+}
+
+.superbooth__footer {
+
 }
 
 // Trumps

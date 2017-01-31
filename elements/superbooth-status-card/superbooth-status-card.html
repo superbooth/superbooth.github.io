@@ -1,0 +1,71 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+
+<!-- Import style modules -->
+<link rel="import" href="../../css/superbooth-frontend-styles.html" />
+<link rel="import" href="../../bower_components/px-theme/px-theme-styles.html" />
+
+<dom-module id="superbooth-status-card">
+  <template>
+    <style include="predix-ui-styles" is="custom-style"></style>
+    <style include="superbooth-frontend-styles" is="custom-style"></style>
+
+    <!-- Team 1 -->
+    <article class="[ flex__item ]">
+      <div class$="superbooth__card superbooth__card--{{status}} [ flex flex--row ]">
+        <div class="[ flex__item ] flex">
+          <div class="flex__item--middle">
+            <h2 class="superbooth__card__title">{{name}}</h2>
+            <p class="superbooth__card__updated">Last Updated: {{lastUpdate}}</p>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="flex__item--middle">
+            <p class$="caps superbooth__card__status superbooth__card__status--{{status}}">{{status}}</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'superbooth-status-card',
+      properties: {
+        /**
+         * The name of the booth.
+         *
+         * @property cardName
+         * @type {String}
+         */
+        name: {
+          type: String
+        },
+
+        /**
+         * The current status of the booth. Can be one of the following:
+         *
+         * - 'unknown' - No status available for the booth
+         * - 'occupied' - The booth is occupied by someone
+         * - 'available' - The booth is unoccupied and can be used
+         *
+         * @type {String}
+         */
+        status: {
+          type: String
+        },
+
+        /**
+         * The last status report recieved for the booth. Should be a stringified
+         * timestamp, like '2:30PM PST'.
+         *
+         * @property lastUpdate
+         * @type {String}
+         */
+        lastUpdate: {
+          type: String
+        }
+      }
+    });
+  </script>
+</dom-module>
