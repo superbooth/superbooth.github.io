@@ -28,5 +28,8 @@
     "px-spinner": "^0.5.1",
     "mqtt-elements": "^0.0.6-beta",
     "px-headings-design": "^0.3.3"
+  },
+  "resolutions": {
+    "polymer": "^1.7.0"
   }
 }
