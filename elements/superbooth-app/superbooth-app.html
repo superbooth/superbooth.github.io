@@ -3,7 +3,6 @@
 
 <!-- Import style modules -->
 <link rel="import" href="../../css/superbooth-frontend-styles.html" />
-<link rel="import" href="../../bower_components/px-theme/px-theme-styles.html" />
 
 <!-- Import external dependencies -->
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
@@ -18,7 +17,6 @@
 
 <dom-module id="superbooth-app">
   <template>
-    <style include="predix-ui-styles" is="custom-style"></style>
     <style include="superbooth-frontend-styles" is="custom-style"></style>
 
     <!-- Config AJAX call -->
@@ -50,6 +48,17 @@
       <!-- Body -->
       <div class="flex__item">
         <div class="superbooth__body">
+          <div class="superbooth__body__info">
+            <p class="superbooth__body__info__label">{{_labelNumOfBooths(booths)}}</p>
+            <div class$="superbooth__body__info__status superbooth__body__info__status--connected-{{brokerConnected}}">
+              <template is="dom-if" if="{{brokerConnected}}">
+                <i class="fa fa-check"></i> Connected
+              </template>
+              <template is="dom-if" if="{{!brokerConnected}}">
+                <i class="fa fa-times"></i> Disconnected
+              </template>
+            </div>
+          </div>
           <!-- App -->
           <section class="flex flex--col">
             <template is="dom-repeat" items="{{booths}}">
@@ -60,13 +69,6 @@
               </superbooth-status-card>
             </template>
           </section>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div class="flex__item flex">
-        <div class="superbooth__footer flex__item flex">
-          <button class="btn btn--reverse flex__item--bottom flex__item--end" on-tap="_resetAllValues">Reset</button>
         </div>
       </div>
     </section>
@@ -254,6 +256,18 @@
 
         // Make sure broker connects
         this._ensureBrokerConnected();
+      },
+
+      /**
+       * Gets a label for the number of booths in the correct grammar.
+       *
+       * @param {Array} booths
+       * @return {String}
+       */
+      _labelNumOfBooths: function(booths) {
+        if (!booths || !booths.length) return 'No booths found';
+        if (booths.length === 1) return 'Showing 1 booth';
+        if (booths.length > 1) return 'Showing ' + booths.length + 'booths';
       }
     });
   </script>

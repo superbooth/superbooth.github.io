@@ -33,6 +33,8 @@ $inuit-enable-btn--tertiary : true;
   opacity: 0.5;
 }
 
+@import 'px-actionable-text-icons-design/_objects.actionable.scss';
+
 // Component
 .superbooth {
   background-color: $gray9;
@@ -51,30 +53,65 @@ $inuit-enable-btn--tertiary : true;
 .superbooth__header {
   background-color: $gray9;
   width: 100%;
-
-  h3 {
-    margin: 0;
-    line-height: calculateRem(60px);
-    font-weight: normal;
-    color: var(--px-seed-header-text-color, $white);
-
-    svg { margin-bottom: -.1em }
-    &.app-title { color: var(--px-seed-header-text-color, $gray4) }
-    &.logo {
-      // visibility: hidden;
-      color: var(--px-seed-header-text-color, $gray6);
-    }
-
-    @include tablet-up {
-      &.logo {
-        visibility: visible;;
-      }
-    }
+  padding-top: $inuit-base-spacing-unit--tiny;
+  @include tablet-up {
+    display: flex;
+    padding: $inuit-base-spacing-unit 0;
+  }
+}
+.superbooth__header__app-title {
+  margin: 0;
+  font-weight: normal;
+  color: var(--px-seed-header-text-color, $white);
+  font-size: $inuit-base-font-size * 1.5;
+  @include tablet-up {
+    flex: 1;
+    font-size: $inuit-base-font-size * 2;
+  }
+}
+.superbooth__header__powered-by {
+  margin: $inuit-base-spacing-unit--tiny 0 0;
+  font-weight: normal;
+  color: var(--px-seed-header-text-color, $gray6);
+  font-size: $inuit-base-font-size * 0.9;
+  @include tablet-up {
+    font-size: $inuit-base-font-size * 1.1;
+  }
+}
+.superbooth__header__predix-logo {
+  display: inline-block;
+  width: 55px;
+  margin: {
+    right: 1px;
+    left: 1px;
+  }
+  @include tablet-up {
+    width: 75px;
   }
 }
 
 .superbooth__body {
   padding-top: $inuit-base-spacing-unit--large;
+}
+.superbooth__body__info {
+  display: flex;
+  color: var(--px-seed-header-text-color, $white);
+  padding: $inuit-base-spacing-unit 0;
+  p {
+
+  }
+}
+.superbooth__body__info__label {
+  flex: 2;
+  margin: 0;
+  font-weight: normal;
+}
+.superbooth__body__info__status {
+  text-align: right;
+  flex: 1;
+  color: $gray5;
+  font-size: $inuit-base-font-size * 0.9;
+  padding-top: 0.2em;
 }
 
 .superbooth__card {

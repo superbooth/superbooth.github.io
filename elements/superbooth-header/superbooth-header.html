@@ -3,24 +3,17 @@
 
 <!-- Import style modules -->
 <link rel="import" href="../../css/superbooth-frontend-styles.html" />
-<link rel="import" href="../../bower_components/px-theme/px-theme-styles.html" />
 
 <!-- Import internal dependencies -->
 <link rel="import" href="../predix-logo/predix-logo.html" />
 
 <dom-module id="superbooth-header">
   <template>
-    <style include="predix-ui-styles" is="custom-style"></style>
     <style include="superbooth-frontend-styles" is="custom-style"></style>
 
     <header role="banner" class="superbooth__header">
-      <div class="flex">
-        <h3 class="flex__item app-title">{{appName}}</h3>
-        <div class="flex__item">
-          <div class="flex" style="text-align:right;">
-            <h3 class="flex__item weight--normal logo">Powered by Think Tank. Running on <predix-logo style="display:inline-block; width: 82px; margin-right: 2px; margin-left: 2px;" class="flex__item"></predix-logo>.</h3>
-          </div>
-        </div>
+      <h3 class="superbooth__header__app-title">{{appName}}</h3>
+      <h3 class="superbooth__header__powered-by">Powered by Think Tank. Running on <predix-logo class="superbooth__header__predix-logo"></predix-logo>.</h3>
       </div>
     </header>
   </template>
