@@ -4,7 +4,7 @@
 
 // Tools
 @mixin tablet-up {
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 600px) {
     @content;
   }
 }
@@ -97,9 +97,6 @@ $inuit-enable-btn--tertiary : true;
   display: flex;
   color: var(--px-seed-header-text-color, $white);
   padding: $inuit-base-spacing-unit 0;
-  p {
-
-  }
 }
 .superbooth__body__info__label {
   flex: 2;
@@ -127,9 +124,18 @@ $inuit-enable-btn--tertiary : true;
   &.superbooth__card--occupied {
     background-color: $dv-light-red;
   }
+  @include tablet-up {
+    display: flex;
+    padding: $inuit-base-spacing-unit--large;
+  }
 }
 .superbooth__card__info {
-
+  @include tablet-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: $inuit-base-spacing-unit--large 0;
+  }
 }
 .superbooth__card__info__title {
   margin: 0;
@@ -138,10 +144,19 @@ $inuit-enable-btn--tertiary : true;
   margin: .2em 0 0;
   @extend .muted;
   font-size: $inuit-base-font-size * 0.9;
+  @include tablet-up {
+    font-size: $inuit-base-font-size;
+  }
 }
 .superbooth__card__status {
-  font-size: $inuit-base-font-size * 1.6;
+  font-size: $inuit-base-font-size * 1.7;
   margin: 2rem 0 0;
+  @include tablet-up {
+    flex: 1;
+    text-align: right;
+    margin: 2rem 0;
+    font-size: $inuit-base-font-size * 2;
+  }
 }
 
 
