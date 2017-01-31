@@ -116,8 +116,7 @@ $inuit-enable-btn--tertiary : true;
 
 .superbooth__card {
   background-color: white;
-  min-height: 8rem;
-  padding: $inuit-base-spacing-unit--large;
+  padding: $inuit-base-spacing-unit;
 
   &.superbooth__card--unknown {
     background-color: $gray3;
@@ -129,42 +128,58 @@ $inuit-enable-btn--tertiary : true;
     background-color: $dv-light-red;
   }
 }
+.superbooth__card__info {
 
+}
+.superbooth__card__info__title {
+  margin: 0;
+}
+.superbooth__card__info__updated {
+  margin: .2em 0 0;
+  @extend .muted;
+  font-size: $inuit-base-font-size * 0.9;
+}
 .superbooth__card__status {
-  @extend .gamma;
-  width: 100%;
-  text-align: right;
-  margin-top: $inuit-base-spacing-unit--large;
-}
-.superbooth__card__title {
-  @extend .delta;
-  font-weight: 400;
-
-  margin-top: $inuit-base-spacing-unit;
-  margin-bottom: $inuit-base-spacing-unit--tiny;
-}
-.superbooth__card__updated {
-  margin-top: 0;
+  font-size: $inuit-base-font-size * 1.6;
+  margin: 2rem 0 0;
 }
 
-.superbooth__card__section {
-  border-right: 1px solid $gray3;
-  text-align: center;
-  padding: $inuit-base-spacing-unit--large
-}
-.superbooth__kpi__title {
-  @extend .epsilon;
-  text-transform: uppercase;
-  color: $gray7;
-}
-.superbooth__kpi__number {
-  @extend .alpha;
-  margin-top: $inuit-base-spacing-unit--large;
-}
 
-.superbooth__footer {
-
-}
+// .superbooth__card__status {
+//   @extend .gamma;
+//   width: 100%;
+//   text-align: right;
+//   margin-top: $inuit-base-spacing-unit--large;
+// }
+// .superbooth__card__title {
+//   @extend .delta;
+//   font-weight: 400;
+//
+//   margin-top: $inuit-base-spacing-unit;
+//   margin-bottom: $inuit-base-spacing-unit--tiny;
+// }
+// .superbooth__card__updated {
+//   margin-top: 0;
+// }
+//
+// .superbooth__card__section {
+//   border-right: 1px solid $gray3;
+//   text-align: center;
+//   padding: $inuit-base-spacing-unit--large
+// }
+// .superbooth__kpi__title {
+//   @extend .epsilon;
+//   text-transform: uppercase;
+//   color: $gray7;
+// }
+// .superbooth__kpi__number {
+//   @extend .alpha;
+//   margin-top: $inuit-base-spacing-unit--large;
+// }
+//
+// .superbooth__footer {
+//
+// }
 
 // Trumps
 @import "inuit-clearfix/_trumps.clearfix.scss";

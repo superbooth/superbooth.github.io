@@ -10,18 +10,12 @@
 
     <!-- Team 1 -->
     <article class="[ flex__item ]">
-      <div class$="superbooth__card superbooth__card--{{status}} [ flex flex--row ]">
-        <div class="[ flex__item ] flex">
-          <div class="flex__item--middle">
-            <h2 class="superbooth__card__title">{{name}}</h2>
-            <p class="superbooth__card__updated">Last Updated: {{lastUpdate}}</p>
-          </div>
+      <div class$="superbooth__card superbooth__card--{{status}}">
+        <div class="superbooth__card__info">
+          <p class="superbooth__card__info__title">{{name}}</p>
+          <p class="superbooth__card__info__updated">Updated: {{lastUpdate}}</p>
         </div>
-        <div class="flex">
-          <div class="flex__item--middle">
-            <p class$="caps superbooth__card__status superbooth__card__status--{{status}}">{{status}}</p>
-          </div>
-        </div>
+        <p class$="superbooth__card__status superbooth__card__status--{{status}}">{{_formatStatus(status)}}</p>
       </div>
     </article>
   </template>
@@ -63,6 +57,20 @@
         lastUpdate: {
           type: String
         }
+      },
+
+      /**
+       * Formats the status for printing to the DOM. Takes 'unknown' and
+       * returns 'Unknown.'
+       *
+       * @param {String} rawStatus
+       * @return {String}
+       */
+      _formatStatus: function(rawStatus) {
+        // If the first character in the string isn't alpha, just return it
+        if (!(rawStatus.charAt(0)).match(/[a-zA-Z]/)) return rawStatus;
+        // Uppercase the first character
+        return rawStatus.slice(0,1).toUpperCase() + rawStatus.slice(1);
       }
     });
   </script>

@@ -230,7 +230,8 @@
       },
 
       _getPrettyTimeString: function(datetime) {
-        return datetime.toTimeString();
+        // return datetime.toTimeString();
+        return datetime.toLocaleTimeString();
       },
 
       configLoaded: function(evt) {
