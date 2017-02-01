@@ -1,7 +1,7 @@
 {
   "appName" : "Superbooth",
 
-  "mqttWebsocketUrl" : "ws://sanramon.ge.mqtt.findquiet.space:1884",
+  "mqttWebsocketUrl" : "wss://sanramon.ge.mqtt.findquiet.space:8083",
   "mqttRequiresLogin" : true,
   "mqttUsername" : "ge_sanramon",
   "mqttPassword" : "Acc3ssGr@nted",
