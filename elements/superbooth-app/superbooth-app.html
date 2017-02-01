@@ -190,7 +190,7 @@
         }
 
         // If it has a length, handle it
-        if (currentQueue.length > 0 && currentQueue.length < 4) {
+        if (currentQueue.length > 0 && currentQueue.length < 3) {
           // Reset the queue
           if (currentQueue.slice(-1) !== newStatus) {
             this.set(boothUpdateQueuePath, [newStatus]);
