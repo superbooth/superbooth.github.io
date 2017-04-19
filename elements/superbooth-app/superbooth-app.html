@@ -41,7 +41,7 @@
     </mqtt-connection>
 
     <!-- App -->
-    <section class="superbooth flex flex--col flex--spaced">
+    <section class="superbooth">
       <!-- Header -->
       <superbooth-header app-name="{{config.appName}}"></superbooth-header>
 
@@ -268,7 +268,7 @@
       _labelNumOfBooths: function(booths) {
         if (!booths || !booths.length) return 'No booths found';
         if (booths.length === 1) return 'Showing 1 booth';
-        if (booths.length > 1) return 'Showing ' + booths.length + 'booths';
+        if (booths.length > 1) return 'Showing ' + booths.length + ' booths';
       }
     });
   </script>

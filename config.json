@@ -8,8 +8,26 @@
   "mqttTopic" : "DataStorageOut",
 
   "booths": {
-    "-16711936" : {
+    "1001" : {
       "name" : "2nd Floor North"
+    },
+    "1002" : {
+      "name" : "2nd Floor South"
+    },
+    "1003" : {
+      "name" : "3nd Floor"
+    },
+    "1004" : {
+      "name" : "4th Floor East"
+    },
+    "1005" : {
+      "name" : "4th Floor West"
+    },
+    "1006" : {
+      "name" : "5th Floor North"
+    },
+    "1007" : {
+      "name" : "5th Floor South"
     }
   }
 }
